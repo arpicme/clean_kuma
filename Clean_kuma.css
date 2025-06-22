@@ -1,0 +1,527 @@
+/* GLOBALS
+-------------------------------------------------- */
+@font-face {
+  font-family: 'Twemoji Country Flags';
+  unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062, U+E0063, U+E0065, U+E0067, U+E006C, U+E006E, U+E0073, U+E0074, U+E0077, U+E007F;
+  src: url('https://cdn.jsdelivr.net/npm/country-flag-emoji-polyfill@0.1/dist/TwemojiCountryFlags.woff2') format('woff2');
+}
+
+:root {
+  /* Palette colors */
+  --color-gray: #82878c;
+  --color-red: #c8463c;
+  --color-orange: #d28700;
+  --color-teal: #00828c;
+  --color-blue: #0f73b4;
+  --color-green: #81FFC0;
+
+  /* Palette RGB colors */
+  --rgb-color-gray: 130, 135, 140;
+  --rgb-color-red: 200, 70, 60;
+  --rgb-color-orange: 210, 135, 0;
+  --rgb-color-teal: 0, 130, 140;
+  --rgb-color-blue: 15, 115, 180;
+  --rgb-color-green: 45, 150, 90;
+
+  /* Light theme semantic colors */
+  --color-bg: #fff;
+  --color-text-primary: #555;
+  --color-text-heading: #141414;
+  --color-text-secondary: #8c8c8c;
+  --color-block-bg: #f8f8f7;
+  --color-monitor-bg: #fff;
+  --color-monitor-border: rgba(0, 0, 0, .1);
+  --color-input-field: #dcdcdc;
+
+  /* Button: Secondary */
+  --color-btn-secondary-bg: transparent;
+  --color-btn-secondary-hover: #e6e6e6;
+  --color-btn-secondary-active: #d2d2d2;
+  --color-btn-secondary-border: rgba(0, 0, 0, .16);
+
+  /* Specific colors */
+  --color-incident-light-bg: var(--color-block-bg);
+  --color-incident-dark-bg: #e8e8e8;
+  --color-text-overall-status: #fff;
+
+  /* Opacity */
+  --opacity-colored-block: .08;
+
+  /* Layout and sizing */
+  --size-container-width: 864px;
+  --size-edit-container-width: 1164px;
+  --size-logo-width: 48px;
+  --size-logo-height: 48px;
+  --size-monitor-min-width: 30ch;
+  --size-monitor-max-width: 1fr;
+  --size-daily-bar-height: 20px;
+
+  /* Spacing */
+  --space-xs: .1rem;
+  --space-sm: .75rem;
+  --space-md: 1rem;
+  --space-lg: 1rem;
+
+  /* Specific spacing */
+  --space-monitor-items: 4px;
+
+  /* Border radius */
+  --radius-sm: .375rem;
+  --radius-md: 1.5rem;
+
+  /* Specific border radius */
+  --radius-timeslot: 2rem;
+
+  /* Typography */
+  --font-size-sm: .875rem;
+  --font-size-heading: 1.125rem;
+  --font-weight-medium: 500;
+  --line-height-heading: 1.2;
+
+  /* Components */
+  /* Button */
+  --padding-btn-x: 12px;
+  --padding-btn-y: 6px;
+}
+
+/* DARK THEME OVERRIDES
+-------------------------------------------------- */
+
+.dark {
+  /* Semantic colors */
+  --color-bg: #000000;
+  --color-text-primary: #f0f0f0;
+  --color-text-heading: #f0f0f0;
+  --color-text-secondary: #7d7d7d;
+  --color-block-bg: #202020;
+  --color-monitor-bg: #000000;
+  --color-monitor-border: rgba(255, 255, 255, .8);
+  --color-input-field: #323232;
+
+  /* Button: Secondary */
+  --color-btn-secondary-bg: transparent;
+  --color-btn-secondary-hover: #292929;
+  --color-btn-secondary-active: #1f1f1f;
+  --color-btn-secondary-border: rgba(255, 255, 255, .13);
+
+  /* Specific colors */
+  --color-incident-light-bg: var(--color-monitor-bg);
+  --color-incident-dark-bg: var(--color-block-bg);
+
+  /* Opacity */
+  --opacity-colored-block: .16;
+}
+
+/* BASE STRUCTURE
+-------------------------------------------------- */
+
+body {
+  background-color: var(--color-bg) !important;
+  color: var(--color-text-primary) !important;
+}
+
+.container {
+  margin-top: 0 !important;
+  padding: var(--space-lg) var(--space-md) 0;
+  max-width: var(--size-container-width);
+}
+
+/* HEADER
+-------------------------------------------------- */
+
+/* Wrapper for logo and title */
+.title-flex {
+  margin-bottom: var(--space-lg) !important;
+}
+
+/* Center the logo */
+.logo-wrapper {
+  margin: 0 auto;
+}
+
+/* Resize the logo */
+.logo-wrapper img[data-v-b8247e57] {
+  width: var(--size-logo-width);
+  height: var(--size-logo-height);
+}
+
+/* Remove the title adjacent to the logo */
+span[data-v-7d4a7f28] {
+  display: none;
+}
+
+/* ADMIN ACTIONS BAR
+-------------------------------------------------- */
+
+/* Fix vertical margin of admin buttons on mobile */
+.mb-4[data-v-b8247e57]:has(.btn-info) {
+  margin-bottom: var(--space-lg) !important;
+}
+.mb-4[data-v-b8247e57]:has(.btn-info) div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+.mb-4[data-v-b8247e57]:has(.btn-info) div button {
+  margin: 0 !important;
+}
+
+/* Block with admin buttons */
+.mb-4[data-v-b8247e57]:has(.btn-info) {
+  border-radius: var(--radius-md);
+  background-color: var(--color-block-bg);
+  padding: var(--space-md);
+}
+
+/* Admin button */
+.btn-info[data-v-b8247e57] {
+  box-shadow: none;
+  border: 1px solid var(--color-btn-secondary-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-btn-secondary-bg);
+  padding: var(--padding-btn-y) var(--padding-btn-x);
+  color: var(--color-text-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}
+.btn-info[data-v-b8247e57]:hover {
+  background-color: var(--color-btn-secondary-hover);
+}
+.btn-info[data-v-b8247e57]:active {
+  box-shadow: none;
+  background-color: var(--color-btn-secondary-active);
+}
+.btn-info[data-v-b8247e57] svg {
+  display: none;
+}
+
+/* INCIDENT BLOCK
+-------------------------------------------------- */
+
+.incident[data-v-b8247e57] {
+  margin-bottom: var(--space-md) !important;
+  box-shadow: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-md) !important;
+  color: var(--color-text-heading) !important;
+}
+.incident[data-v-b8247e57].bg-info {
+  background-color: rgba(var(--rgb-color-teal), var(--opacity-colored-block)) !important;
+}
+.incident[data-v-b8247e57].bg-warning {
+  background-color: rgba(var(--rgb-color-orange), var(--opacity-colored-block)) !important;
+}
+.incident[data-v-b8247e57].bg-danger {
+  background-color: rgba(var(--rgb-color-red), var(--opacity-colored-block)) !important;
+}
+.incident[data-v-b8247e57].bg-primary {
+  background-color: rgba(var(--rgb-color-green), var(--opacity-colored-block)) !important;
+}
+.incident[data-v-b8247e57].bg-light {
+  background-color: var(--color-incident-light-bg) !important;
+}
+.incident[data-v-b8247e57].bg-dark {
+  background-color: var(--color-incident-dark-bg) !important;
+}
+.incident[data-v-b8247e57] h4 {
+  font-size: var(--font-size-heading);
+}
+.incident[data-v-b8247e57] div {
+  color: var(--color-text-primary);
+}
+
+/* OVERALL STATUS BLOCK
+-------------------------------------------------- */
+
+.overall-status[data-v-b8247e57] {
+  margin-bottom: var(--space-md) !important;
+  box-shadow: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-md) !important;
+  color: var(--color-text-overall-status);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-heading);
+  line-height: var(--line-height-heading);
+}
+.overall-status[data-v-b8247e57]:has(.ok) {
+  background-color: var(--color-green);
+}
+.overall-status[data-v-b8247e57]:has(.warning) {
+  background-color: var(--color-orange);
+}
+.overall-status[data-v-b8247e57]:has(.danger) {
+  background-color: var(--color-red);
+}
+.overall-status[data-v-b8247e57]:has(.status-maintenance) {
+  background-color: var(--color-blue);
+}
+.overall-status[data-v-b8247e57] svg {
+  display: none;
+}
+
+/* MAINTENANCE BLOCK
+-------------------------------------------------- */
+
+.shadow-box.bg-maintenance {
+  margin: var(--space-md) 0 !important;
+  box-shadow: none;
+  border-radius: var(--radius-md);
+  background-color: rgba(var(--rgb-color-blue), var(--opacity-colored-block)) !important;
+  padding: var(--space-md) !important;
+  color: var(--color-text-heading) !important;
+}
+.shadow-box.bg-maintenance .alert-heading {
+  color: var(--color-text-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-heading);
+}
+.shadow-box.bg-maintenance .content {
+  color: var(--color-text-primary);
+}
+.shadow-box.bg-maintenance div[data-v-b8247e57]:not([class]) div:not([class]) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.timeslot {
+  margin: 0 !important;
+  border-radius: var(--radius-timeslot);
+  background-color: rgba(var(--rgb-color-blue), .13) !important;
+  color: var(--color-blue) !important;
+}
+
+/* USER MARKDOWN ELEMENTS
+-------------------------------------------------- */
+
+.alert-heading.p-2 {
+  margin-bottom: var(--space-lg);
+  padding: 0 !important;
+}
+.alert-heading.p-2 p {
+  margin: 0;
+}
+
+/* Link (excluding button) */
+a:not(.btn),
+.dark a:not(.btn) {
+  color: inherit;
+}
+a:not(.btn):hover,
+.dark a:not(.btn):hover {
+  color: var(--color-blue);
+}
+
+/* PAGE DESCRIPTION
+-------------------------------------------------- */
+
+div > .alert-heading.p-2:has(*) {
+  margin-top: var(--space-lg);
+  border-radius: var(--radius-md);
+  background-color: var(--color-block-bg);
+  padding: var(--space-md) !important;
+}
+
+/* MONITOR GROUP
+-------------------------------------------------- */
+
+div[data-v-f71ca08e]:has(> .group-title) {
+  margin-bottom: var(--space-md) !important;
+  border-radius: var(--radius-md);
+  background-color: var(--color-block-bg);
+  padding: var(--space-md);
+}
+
+/* Monitor group title */
+.group-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-md);
+  color: var(--color-text-heading);
+  font-size: var(--font-size-heading);
+}
+
+/* Monitor elements in the group */
+.shadow-box.monitor-list {
+  margin-top: 0 !important;
+  box-shadow: none;
+  background-color: transparent !important;
+  padding: 0;
+}
+.shadow-box.monitor-list > .monitor-list {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(
+      min(var(--size-monitor-min-width), 100%),
+      var(--size-monitor-max-width)
+    )
+  );
+  grid-gap: var(--space-md);
+}
+
+/* Adjusting grid layout at certain viewport sizes */
+/* It's not perfect, but it works */
+@media (min-width: 540px) and (max-width: 604px) {
+  :root {
+    --size-monitor-min-width: 20ch;
+  }
+}
+
+/* MONITOR ITEM
+-------------------------------------------------- */
+
+.monitor-list .item {
+  border: 2px solid var(--color-monitor-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-monitor-bg);
+  padding: var(--space-md) !important;
+}
+.monitor-list .item:hover {
+  background-color: var(--color-monitor-bg) !important;
+}
+.monitor-list .item > .row {
+  flex-direction: column;
+}
+.monitor-list .item > .row > div {
+  width: 100%;
+}
+
+/* Monitor name and badge container */
+.info {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-xs);
+  padding: 0 var(--space-monitor-items);
+}
+
+/* Monitor name */
+.item-name[data-v-f71ca08e] {
+  padding-left: 0;
+  overflow: hidden;
+  color: var(--color-text-heading);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Uptime percentage badge (now just text) */
+.badge {
+  all: unset;
+  order: 2;
+  margin-left: auto;
+  background-color: transparent !important;
+  color: var(--color-gray) !important;
+}
+.badge.bg-danger {
+  color: var(--color-red) !important;
+}
+.badge.bg-warning {
+  color: var(--color-orange) !important;
+}
+.badge.bg-primary {
+  color: var(--color-green) !important;
+}
+.badge.bg-maintenance {
+  color: var(--color-blue) !important;
+}
+
+/* Extra vertical indentation */
+.extra-info[data-v-f71ca08e] {
+  display: none;
+}
+
+/* Wrapper for the uptime history timeline and daily uptime text */
+.wrap {
+  padding: 0 !important;
+}
+.mobile .wrap {
+  padding-bottom: 6px !important;
+}
+
+/* Uptime history timeline */
+.hp-bar-big {
+  display: flex;
+  justify-content: center;
+  padding-bottom: var(--space-xs);
+}
+.mobile .hp-bar-big {
+  padding-bottom: 0;
+}
+
+/* Daily bar in the uptime history timeline */
+.hp-bar-big .beat[data-v-636dc6a9] {
+  margin: 0 2px !important;
+  background-color: var(--color-green);
+  height: var(--size-daily-bar-height) !important;
+}
+.hp-bar-big .beat[data-v-636dc6a9]:not(.empty):hover {
+  transform: none;
+  opacity: .7;
+}
+.hp-bar-big .beat[data-v-636dc6a9]:first-of-type {
+  margin-left: 0 !important;
+}
+.hp-bar-big .beat[data-v-636dc6a9]:last-of-type {
+  margin-right: 0 !important;
+}
+.hp-bar-big .beat[data-v-636dc6a9].empty {
+  background-color: var(--color-gray);
+}
+.hp-bar-big .beat[data-v-636dc6a9].down {
+  background-color: var(--color-red);
+}
+.hp-bar-big .beat[data-v-636dc6a9].pending {
+  background-color: var(--color-orange);
+}
+.hp-bar-big .beat[data-v-636dc6a9].maintenance {
+  background-color: var(--color-blue);
+}
+
+/* Daily uptime text (below day bars) */
+.word[data-v-636dc6a9] {
+  margin: 0 var(--space-monitor-items) !important;
+  color: var(--color-text-primary);
+}
+
+/* FOOTER
+-------------------------------------------------- */
+
+/* User markdown, Uptime Kuma branding, refresh timer */
+footer[data-v-b8247e57] {
+  margin: var(--space-lg) 0 !important;
+  color: var(--color-text-secondary);
+}
+
+/* Extra spacing if the user footer has anything */
+footer .alert-heading.p-2:has(*) {
+  margin-bottom: var(--space-md) !important;
+}
+
+/* Refresh timer */
+/* Remove/comment "display: none" to restore visibility */
+.refresh-info[data-v-b8247e57] {
+  display: none;
+  opacity: 1;
+  margin-bottom: 0 !important;
+}
+
+/* EDIT WINDOW
+-------------------------------------------------- */
+
+.container:has(.edit) {
+  max-width: var(--size-edit-container-width);
+}
+
+/* Input field for the monitor group name */
+.edit span[data-v-7d4a7f28][data-v-f71ca08e] {
+  background-color: var(--color-input-field);
+  padding: .25rem .5rem;
+}
+
+/* Input field for page description and footer */
+.edit h4[data-v-7d4a7f28][data-v-b8247e57][contenteditable="true"],
+.edit div[data-v-7d4a7f28][data-v-b8247e57] {
+  background-color: var(--color-input-field);
+  padding: var(--space-sm) var(--space-md) !important;
+  color: var(--color-text-heading);
+}
